@@ -1,0 +1,6 @@
+.my-alert{
+    position: fixed !important;
+    right: 10px;
+    bottom: 10px;
+    width: 25%;
+}
