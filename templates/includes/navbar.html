@@ -13,7 +13,7 @@
      <div>
            {% if request.user.is_authenticated %}
                <div class="d-flex align-items-center ">
-                <span class="badge text-bg-dark mx-4">{{ request.user.username }} | <u>{{ user.role}}</u></span>
+                <a href="{% url 'profile' %}" class="badge text-bg-dark mx-4">{{ request.user.username }} | <u>{{ user.role}}</u></a>
 
                <form method="post" action="{% url 'logout' %}">
                    {% csrf_token %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="row">
+   
+    <div class="col-4 rounded bg-white p-4 mx-auto">
+        <div class="text-center">
+                {% if profile_user.image %}
+        <img style="display:inline-block !important; width:100px; height:100px; border-radius:50%;" class="" src="{{ profile_user.image.url }}" alt="avatar">
+        {% else %}
+        <div>
+            {{ profile_user.username|slice:":1"|upper }}
+        </div>
+        {% endif %}
+        <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+        </div>
+   <div>@{{ profile_user.username }} • {{ profile_user.role }}</div><ul>
+       <li><strong>Email:</strong> {{ profile_user.email|default:"-" }}</li>
+       <li><strong>Telefon:</strong> {{ profile_user.phone|default:"-" }}</li>
+       <li><strong>Manzil:</strong> {{ profile_user.address|default:"-" }}</li></ul>
+    <div class="text-center">
+    <a class="btn btn-outline-secondary" href="{% url 'profile_edit' %}">Profilni tahrirlash</a>
+    </div>
+</div>
+</div>
+{% endblock %}

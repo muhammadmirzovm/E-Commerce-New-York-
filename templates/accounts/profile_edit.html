@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Edit profile{% endblock %}
+{% block content %}
+<div class="col-4 bg-white rounded p-4 mx-auto">
+   <h1>Profilni tahrirlash</h1>
+   <form method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       {{ form|crispy }}
+       <div class="text-center">
+        <button class="btn btn-secondary" type="submit">Saqlash</button>
+       <a class="text-secondary" href="{% url 'profile' %}">Bekor qilish</a>
+       </div>
+   </form>
+</div>
+{% endblock %}
+
