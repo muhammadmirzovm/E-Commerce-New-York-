@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %}Mahsulotlar{% endblock %}
+<!-- .\ -->
+{% block content %}
+<h1 class="">Mahsulotlar</h1><div>
+ {% for p in products %}<div>
+   {% if p.main_image %}
+   <img class="w-100" src="{{ p.main_image.url }}" alt="{{ p.name }}" />
+   {% else %}<div><span>No image</span></div>
+   {% endif %}<h2>{{ p.name }}</h2><div>
+     {% if p.category %}{{ p.category.name }}{% else %}No category{% endif %}</div>
+   <div>{{ p.price }} so'm</div>
+   <a href="{% url 'product_detail' p.slug %}">Batafsil</a></div>
+ {% empty %}
+ <p>Hozircha mahsulot yo‘q.</p>
+ {% endfor %}</div>
+
+
+
+ {% if is_paginated %}
+ <nav class="mt-4">
+   <ul class="pagination">
+     {% if page_obj.has_previous %}
+       <li class="page-item">
+         <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Oldingi</a>
+       </li>
+     {% endif %}
+
+     <li class="page-item disabled">
+       <span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+     </li>
+
+     {% if page_obj.has_next %}
+       <li class="page-item">
+         <a class="page-link" href="?page={{ page_obj.next_page_number }}">Keyingi</a>
+       </li>
+     {% endif %}
+   </ul>
+ </nav>
+{% endif %}
+{% endblock %}
+
+

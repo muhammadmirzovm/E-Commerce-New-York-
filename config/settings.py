@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'crispy_bootstrap5',
+    'catalog'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,6 @@ AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = "home"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
+DEFAULT_FROM_EMAIL = "noreply@marketplace.local"

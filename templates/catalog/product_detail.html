@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<div class="row g-4">
+ <div class="col-md-5">
+   <div class="card shadow-sm">
+     {% if product.main_image %}
+       <img src="{{ product.main_image.url }}" class="img-fluid" alt="{{ product.name }}">
+     {% else %}
+       <div class="bg-white d-flex align-items-center justify-content-center" style="height:320px;">
+         <span class="text-muted">No image</span>
+       </div>
+     {% endif %}
+   </div>
+   {% if product.images.all %}
+     <div class="d-flex gap-2 mt-3 flex-wrap">
+       {% for img in product.images.all %}
+         <img src="{{ img.image.url }}" alt="{{ img.alt_text }}" class="border rounded" style="width:80px; height:80px; object-fit:cover;">
+       {% endfor %}
+     </div>
+   {% endif %}
+ </div>
+<div><h1>{{ product.name }}</h1>
+<div>Seller: {{ product.seller.username }} {% if product.category %}| Category: {{ product.category.name }}{% endif %}</div>
+<div>{{ product.price }} so'm</div>
+{% if product.short_description %}<p>{{ product.short_description }}</p>{% endif %}
+{% if product.description %}<p>{{ product.description }}</p>{% endif %}
+<ul>
+<li><strong>Stock:</strong> {{ product.stock }}</li>
+<li><strong>Status:</strong> {% if product.is_active %}Active{% else %}Inactive{% endif %}</li>
+</ul>
+<button disabled>Add to cart (keyingi dars)</button>
+<a href="{% url 'product_list' %}">Orqaga</a>
+</div>{% endblock %}
