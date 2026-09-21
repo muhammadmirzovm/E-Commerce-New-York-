@@ -4,17 +4,29 @@
 <!-- .\ -->
 {% block content %}
 <h1 class="">Mahsulotlar</h1><div>
- {% for p in products %}<div>
-   {% if p.main_image %}
-   <img class="w-100" src="{{ p.main_image.url }}" alt="{{ p.name }}" />
+<div class="row">
+   {% for p in products %}
+ <div class="col-3 ">
+  <div class="card" style="width: 18rem;">
+     {% if p.main_image %}
+   <img class="card-img-top w-100" src="{{ p.main_image.url }}" alt="{{ p.name }}" />
    {% else %}<div><span>No image</span></div>
-   {% endif %}<h2>{{ p.name }}</h2><div>
-     {% if p.category %}{{ p.category.name }}{% else %}No category{% endif %}</div>
-   <div>{{ p.price }} so'm</div>
-   <a href="{% url 'product_detail' p.slug %}">Batafsil</a></div>
+   {% endif %}
+  <div class="card-body">
+    <span>{% if p.category %}{{ p.category.name }}{% else %}No category{% endif %}</span>
+    <h5 class="card-title">{{ p.name }}</h5>
+    <p class="card-text">{{ p.short_description }}</p>
+    <div>
+      Narxi : <b>{{ p.price }}</b> so'm
+    </div>
+    <a href="{% url 'product_detail' p.slug %}" class="btn btn-primary">Batafsil</a>
+  </div>
+</div>
  {% empty %}
  <p>Hozircha mahsulot yo‘q.</p>
- {% endfor %}</div>
+ {% endfor %}
+</div>
+
 
 
 

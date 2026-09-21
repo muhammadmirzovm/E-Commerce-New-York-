@@ -2,7 +2,7 @@
 {% block title %}{{ product.name }}{% endblock %}
 {% block content %}
 <div class="row g-4">
- <div class="col-md-5">
+ <div class="col">
    <div class="card shadow-sm">
      {% if product.main_image %}
        <img src="{{ product.main_image.url }}" class="img-fluid" alt="{{ product.name }}">
@@ -20,7 +20,7 @@
      </div>
    {% endif %}
  </div>
-<div><h1>{{ product.name }}</h1>
+<div class="col"><h1>{{ product.name }}</h1>
 <div>Seller: {{ product.seller.username }} {% if product.category %}| Category: {{ product.category.name }}{% endif %}</div>
 <div>{{ product.price }} so'm</div>
 {% if product.short_description %}<p>{{ product.short_description }}</p>{% endif %}
@@ -30,5 +30,5 @@
 <li><strong>Status:</strong> {% if product.is_active %}Active{% else %}Inactive{% endif %}</li>
 </ul>
 <button disabled>Add to cart (keyingi dars)</button>
-<a href="{% url 'product_list' %}">Orqaga</a>
+<a class="btn btn-outline-secondary" href="{% url 'home' %}">Orqaga</a>
 </div>{% endblock %}

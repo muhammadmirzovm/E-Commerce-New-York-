@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}My Products{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+ <h1 class="h4 mb-0">My Products</h1>
+ <a class="btn btn-dark" href="{% url 'seller_product_add' %}">+ Add product</a>
+</div>
+<div class="card shadow-sm">
+ <div class="card-body">
+   {% if products %}
+     <div class="table-responsive">
+       <table class="table align-middle">
+         <thead>
+           <tr>
+             <th>Nomi</th>
+             <th>Narxi</th>
+             <th>Miqdor</th>
+             <th>Sotuvda</th>
+             <th style="width:180px;">O'zgartirish</th>
+           </tr>
+         </thead>
+         <tbody>
+           {% for p in products %}
+             <tr>
+               <td>{{ p.name }}</td>
+               <td>{{ p.price }}</td>
+               <td>{{ p.stock }}</td>
+               <td>{% if p.is_active %}Yes{% else %}No{% endif %}</td>
+               <td>
+                 <a class="btn btn-sm btn-outline-dark" href="{% url 'seller_product_edit' p.pk %}">O'zgartirish</a>
+                 <a class="btn btn-sm btn-outline-danger" href="{% url 'seller_product_delete' p.pk %}">O'chirish</a>
+               </td>
+             </tr>
+           {% endfor %}
+         </tbody>
+       </table>
+     </div>
+   {% else %}
+     <p class="text-muted mb-0">Hozircha mahsulot yo‘q. + Add product bosib qo‘shing.</p>
+   {% endif %}
+
+ </div>
+</div>
+<!-- Pagination -->
+{% if is_paginated %}
+ <nav class="mt-4">
+   <ul class="pagination">
+     {% if page_obj.has_previous %}
+       <li class="page-item">
+         <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Oldingi</a>
+       </li>
+     {% endif %}
+
+     <li class="page-item disabled">
+       <span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+     </li>
+
+     {% if page_obj.has_next %}
+       <li class="page-item">
+         <a class="page-link" href="?page={{ page_obj.next_page_number }}">Keyingi</a>
+       </li>
+     {% endif %}
+   </ul>
+ </nav>
+{% endif %}
+{% endblock %}
