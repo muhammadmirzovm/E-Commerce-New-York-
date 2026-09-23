@@ -3,8 +3,62 @@
 {% block title %}Mahsulotlar{% endblock %}
 <!-- .\ -->
 {% block content %}
-<h1 class="">Mahsulotlar</h1><div>
+<h1 class="">Mahsulotlar</h1>
+<div>
+
+
 <div class="row">
+    <!-- FILTER FORM (GET) -->
+<form method="get" class="bg-white border rounded-4 shadow-sm p-3 mb-3">
+ <div class="row g-2 align-items-end">
+
+   <div class="col-md-4">
+     <label class="form-label small text-muted">Search</label>
+     <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Nomi yoki tavsif...">
+   </div>
+
+   <div class="col-md-3">
+     <label class="form-label small text-muted">Category</label>
+     <select name="category" class="form-select">
+       <option value="">All</option>
+       {% for c in categories %}
+         <option value="{{ c.slug }}" {% if category == c.slug %}selected{% endif %}>
+           {{ c.name }}
+         </option>
+         {% for child in c.children.all %}
+           <option value="{{ child.slug }}" {% if category == child.slug %}selected{% endif %}>
+             — {{ child.name }}
+           </option>
+         {% endfor %}
+       {% endfor %}
+     </select>
+   </div>
+
+   <div class="col-md-2">
+     <label class="form-label small text-muted">Min price</label>
+     <input type="text" name="min_price" value="{{ min_price }}" class="form-control" placeholder="100">
+   </div>
+
+   <div class="col-md-2">
+     <label class="form-label small text-muted">Max price</label>
+     <input type="text" name="max_price" value="{{ max_price }}" class="form-control" placeholder="500">
+   </div>
+   <div class="col-md-1">
+     <button class="btn btn-dark w-100">Go</button>
+   </div>
+   <div class="col-md-3">
+     <label class="form-label small text-muted">Sort</label>
+     <select name="sort" class="form-select">
+       <option value="latest" {% if sort == "latest" %}selected{% endif %}>Latest</option>
+       <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>Cheap → Expensive</option>
+       <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>Expensive → Cheap</option>
+     </select>
+   </div>
+   <div class="col-md-2">
+     <a class="btn btn-outline-secondary w-100" href="{% url 'home' %}">Reset</a>
+   </div>
+ </div>
+</form>
    {% for p in products %}
  <div class="col-3 ">
   <div class="card" style="width: 18rem;">
@@ -52,5 +106,4 @@
  </nav>
 {% endif %}
 {% endblock %}
-
 
