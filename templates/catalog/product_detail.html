@@ -29,6 +29,22 @@
 <li><strong>Stock:</strong> {{ product.stock }}</li>
 <li><strong>Status:</strong> {% if product.is_active %}Active{% else %}Inactive{% endif %}</li>
 </ul>
-<button disabled>Add to cart (keyingi dars)</button>
+{% if request.user.is_authenticated %}
+ <form method="post" action="{% url 'cart_add' product.id %}" class="d-flex gap-2">
+   {% csrf_token %}
+   <input type="number" name="qty" value="1" min="1" class="form-control" style="max-width:120px;">
+   <button class="btn btn-success">Savatga qo'shish</button>
+   <a class="btn btn-outline-dark" href="{% url 'cart_detail' %}">Savatga o'tish</a>
+ </form>
+{% else %}
+ <div class="alert alert-light border">
+   Savatchaga qo‘shish uchun login qiling.
+   <a class="btn btn-dark btn-sm ms-2"
+      href="{% url 'login' %}?next={% url 'product_detail' product.slug %}">
+     Kirish
+   </a>
+ </div>
+{% endif %}
+
 <a class="btn btn-outline-secondary" href="{% url 'home' %}">Orqaga</a>
 </div>{% endblock %}

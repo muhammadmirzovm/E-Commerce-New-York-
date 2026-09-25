@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">Savatcha</h1>
+<div class="card border rounded-4 shadow-sm">
+ <div class="card-body">
+   {% if items.count == 0 %}
+     <p class="text-muted mb-0">Savatcha bo‘sh.</p>
+   {% else %}
+     <div class="table-responsive">
+       <table class="table align-middle">
+         <thead>
+           <tr><th>Mahsulot</th><th>Narx</th><th style="width:240px;">Miqdor</th><th>Umumiy narxi</th><th style="width:120px;"></th></tr>
+         </thead>
+         <tbody>
+           {% for item in items.all %}
+             <tr>
+               <td class="fw-semibold">{{ item.product.name }}</td>
+               <td>{{ item.unit_price }}</td>
+               <td>
+                 <form method="post" action="{% url 'cart_update' item.product.id %}" class="d-flex gap-2">
+                   {% csrf_token %}
+                   <input readonly type="number" name="qty" min="1" value="{{ item.qty }}" class="form-control">
+                   <button class="btn btn-outline-dark btn-sm">+1</button>
+                 </form>
+               </td>
+               <td class="fw-semibold">{{ item.line_total }}</td>
+               <td>
+                 <form method="post" action="{% url 'cart_remove' item.product.id %}">
+                   {% csrf_token %}
+                   <button class="btn btn-outline-danger btn-sm w-100">O'chirish</button>
+                 </form>
+               </td>
+             </tr>
+           {% endfor %}
+         </tbody>
+       </table>
+     </div>
+     <hr>
+     <hr>
+     <div class="row justify-content-end">
+       <div class="col-md-5">
+         <ul class="list-group">
+           <li class="list-group-item d-flex justify-content-between">
+             <span>Narxi</span><strong>{{ subtotal }}</strong>
+           </li>
+           <li class="list-group-item d-flex justify-content-between">
+             <span>Yetkazib berish</span><strong>{{ delivery }}</strong>
+           </li>
+           <li class="list-group-item d-flex justify-content-between">
+             <span>Umumiy narx</span><strong>{{ total }}</strong>
+           </li>
+         </ul>
+         <div class="d-flex gap-2 mt-3">
+           <a class="btn btn-outline-secondary w-100" href="{% url 'home' %}">Xaridni davom etish</a>
+           <button class="btn btn-dark w-100" disabled>Checkout (9-dars)</button>
+         </div>
+       </div>
+     </div>
+   {% endif %}
+ </div>
+</div>
+{% endblock %}
