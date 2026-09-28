@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Buyurtma #{{ order.id }}{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">Buyurtma #{{ order.id }}</h1>
+<div class="row g-3">
+<div class="col-lg-6">
+  <div class="card shadow-sm border rounded-4">
+    <div class="card-body">
+      <div><strong>Nomi:</strong> {{ order.full_name }}</div>
+      <div><strong>Telefon raqam:</strong> {{ order.phone }}</div>
+      <div><strong>Address:</strong> {{ order.address }}</div>
+      <div><strong>Yetkazib berish:</strong> {{ order.delivery_method }}</div>
+      {% if order.note %}<div><strong>Xabar:</strong> {{ order.note }}</div>{% endif %}</div></div></div>
+<div class="col-lg-6">
+  <div class="card shadow-sm border rounded-4">
+    <div class="card-body">
+      <h2 class="h6 mb-3">Buyurtmalar</h2>
+      {% for item in order.items.all %}
+        <div class="d-flex justify-content-between"><div>
+            <div class="fw-semibold">{{ item.product.name }}</div>
+            <div class="text-muted small">Miqdori: {{ item.qty }} • Sotuvchi: {{ item.seller.username }} • Holat: {{ item.status }}</div></div>
+          <div class="fw-semibold">{{ item.unit_price }}</div></div><hr>
+      {% endfor %}
+    </div></div> </div></div>
+{% endblock %}

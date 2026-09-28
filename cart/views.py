@@ -7,6 +7,7 @@ from .models import CartItem
 from .utils import get_or_create_cart
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+
 class CartDetailView(LoginRequiredMixin, TemplateView):
     template_name = "cart/cart_detail.html"
     def get_context_data(self, **kwargs):
