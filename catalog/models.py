@@ -64,3 +64,25 @@ class ProductImage(models.Model):
         return f"Image for {self.product.name}"
 
 
+class Review(models.Model):
+    product = models.ForeignKey(  # qaysi productga yozildi
+        Product,  # agar shu fayl ichida Product bo'lsa Product deb yozsa ham bo'ladi
+        on_delete=models.CASCADE,
+        related_name="reviews")
+    user = models.ForeignKey(  # kim yozdi
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="reviews")
+    rating = models.PositiveSmallIntegerField(default=5)  # 1-5 oralig'ida bo'ladi
+    comment = models.TextField(blank=True)  # izoh ixtiyoriy
+    created_at = models.DateTimeField(auto_now_add=True)  # yozilgan vaqt
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(  # bir user bir productga faqat 1 marta yozsin
+                fields=["product", "user"],
+                name="unique_review_per_user_product"
+            )
+        ]
+    def __str__(self):
+        return f"{self.product.name} - {self.user.username} ({self.rating})"
+

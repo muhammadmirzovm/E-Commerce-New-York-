@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Buyurtma holatini yangilash{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3 text-center">Buyurtma #{{ object.id }} — Holati</h1>
+<div class="col-6 mx-auto card shadow-sm border rounded-4">
+<div class="card-body">
+  <form method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button class="btn btn-dark w-100">Saqlash</button>
+  </form>
+  <a class="btn btn-outline-secondary w-100 mt-2" href="{% url 'seller_order_items' %}">
+    Orqaga
+  </a></div></div>
+{% endblock %}
+
+

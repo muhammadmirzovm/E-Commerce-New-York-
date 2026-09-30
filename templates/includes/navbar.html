@@ -20,6 +20,12 @@
             {% endif %}
 
         </li>
+        {% if request.user.role == "SELLER" and request.user.is_authenticated %}
+        <li class="nav-item">
+         <a class="nav-link" href="{% url 'seller_order_items' %}">Buyurtmalar (Seller)</a>
+        </li>
+       {% endif %}
+
        
       </ul>
      <div>

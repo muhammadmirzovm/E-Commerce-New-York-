@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Buyurtma tafsiloti{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">Buyurtma #{{ item.order.id }} — Tafsiloti</h1>
+<div class="row g-3">
+<div class="col-lg-6">
+  <div class="card shadow-sm border rounded-4">
+    <div class="card-body">
+      <h2 class="h6 mb-2">Mahsulot</h2>
+      <div class="fw-semibold">{{ item.product.name }}</div>
+      <div class="text-muted small">Miqdori: {{ item.qty }} • Jami: {{ item.unit_price }}</div>
+      <div class="mt-2"><span class="badge bg-secondary">Buyurtma holati: {{ item.status }}</span></div>
+    </div></div> </div>
+<div class="col-lg-6">
+  <div class="card shadow-sm border rounded-4">
+    <div class="card-body">
+      <h2 class="h6 mb-2">Xaridor ma'lumotlari</h2>
+      <div><strong>Nomi:</strong> {{ item.order.full_name }}</div>
+      <div><strong>Telefon raqami:</strong> {{ item.order.phone }}</div>
+      <div><strong>Manzil:</strong> {{ item.order.address }}</div>
+      <div class="text-muted small mt-2">Buyurtma vaqti: {{ item.order.created_at }}</div></div></div></div></div>
+<a class="btn btn-outline-secondary mt-3" href="{% url 'seller_order_items' %}">Orqaga</a>
+{% endblock %}
